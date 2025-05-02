@@ -1,24 +1,39 @@
-// LoginPage.tsx
 "use client";
+
 import { useState } from "react";
+import DOMPurify from "dompurify";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Sanitize Input (Basic Example) - We can improve this by adding a proper sanitize library
-    const sanitizedUsername = username.replace(/<script.*?>.*?<\/script>/gi, "");
-    const sanitizedPassword = password.replace(/<script.*?>.*?<\/script>/gi, "");
+    // Sanitize inputs to prevent XSS
+    const sanitizedUsername = DOMPurify.sanitize(username.trim());
+    const sanitizedPassword = DOMPurify.sanitize(password.trim());
 
-    if (sanitizedUsername === 'test' && sanitizedPassword === '1234test') {
-      console.log('✅ Login success');
-      alert('Login successful!');
-    } else {
-      console.warn('❌ Login failed');
-      alert('Login failed! Please check your username and password.');
+    // Basic input validation
+    if (!sanitizedUsername || !sanitizedPassword) {
+      setError('Please fill in all fields.');
+      setSuccess('');
+      return;
+    }
+
+    try {
+      if (sanitizedUsername === 'test' && sanitizedPassword === '1234test') {
+        setSuccess('Login successful!');
+        setError('');
+      } else {
+        setError('Login failed! Please check your username and password.');
+        setSuccess('');
+      }
+    } catch {
+      setError('Something went wrong. Please try again later.');
+      setSuccess('');
     }
   };
 
@@ -37,7 +52,7 @@ export default function LoginPage() {
             onChange={(e) => setUsername(e.target.value)}
             className="p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
-          
+
           <input
             type="password"
             autoComplete="current-password"
@@ -47,6 +62,9 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             className="p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {success && <p className="text-green-600 text-sm">{success}</p>}
 
           <div className="text-right text-sm text-blue-600 hover:underline cursor-pointer">
             Forgot password?
@@ -58,6 +76,7 @@ export default function LoginPage() {
           >
             Login
           </button>
+
           <p className="mt-4 text-sm text-gray-600">
             Don&apos;t have an account yet?{" "}
             <a
