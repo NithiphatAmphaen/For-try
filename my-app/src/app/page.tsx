@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -8,6 +9,9 @@ export default function Home() {
       <p className="text-lg text-gray-700">
         This is a simple Next.js app with TypeScript and Tailwind CSS.
       </p>
+      <Link href='./main/login/'>
+      This is a link to the login page
+      </Link>
     </div>
   );
 }
