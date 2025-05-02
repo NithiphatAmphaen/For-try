@@ -4,89 +4,115 @@ import { useState } from "react";
 import DOMPurify from "dompurify";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Sanitize inputs to prevent XSS
     const sanitizedUsername = DOMPurify.sanitize(username.trim());
     const sanitizedPassword = DOMPurify.sanitize(password.trim());
 
-    // Basic input validation
     if (!sanitizedUsername || !sanitizedPassword) {
-      setError('Please fill in all fields.');
-      setSuccess('');
+      setError("Please fill in all fields.");
+      setSuccess("");
       return;
     }
 
     try {
-      if (sanitizedUsername === 'test' && sanitizedPassword === '1234test') {
-        setSuccess('Login successful!');
-        setError('');
+      if (sanitizedUsername === "test" && sanitizedPassword === "1234test") {
+        setSuccess("Login successful!");
+        setError("");
       } else {
-        setError('Login failed! Please check your username and password.');
-        setSuccess('');
+        setError("Login failed! Please check your username and password.");
+        setSuccess("");
       }
     } catch {
-      setError('Something went wrong. Please try again later.');
-      setSuccess('');
+      setError("Something went wrong. Please try again later.");
+      setSuccess("");
     }
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
-      <section className="w-full max-w-md bg-white border border-gray-300 rounded-lg shadow-md p-6 flex flex-col items-center">
-        <h1 className="text-xl font-bold mb-6">Login</h1>
+    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 px-4">
+      <section className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Welcome Back
+        </h1>
+        <p className="text-center text-gray-600 mb-4">
+          Please login to your account
+        </p>
 
-        <form className="w-full flex flex-col space-y-4" onSubmit={handleLogin}>
-          <input
-            type="text"
-            autoComplete="username"
-            placeholder="Username or Email"
-            required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
+        <form className="space-y-6" onSubmit={handleLogin}>
+          <div>
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Username or Email
+            </label>
+            <input
+              id="username"
+              type="text"
+              autoComplete="username"
+              placeholder="Enter your username or email"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-orange-400 focus:border-orange-400"
+            />
+          </div>
 
-          <input
-            type="password"
-            autoComplete="current-password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="Enter your password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-orange-400 focus:border-orange-400"
+            />
+          </div>
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-600 text-sm">{success}</p>}
 
-          <div className="text-right text-sm text-blue-600 hover:underline cursor-pointer">
-            Forgot password?
+          <div className="flex justify-between items-center text-sm">
+            <a
+              href="/forgot-password"
+              className="text-blue-600 hover:underline"
+            >
+              Forgot password?
+            </a>
           </div>
 
           <button
             type="submit"
-            className="w-full h-10 bg-orange-300 border-2 border-orange-400 text-white hover:text-black hover:shadow-lg rounded-sm font-semibold transition"
+            className="w-full py-3 bg-orange-500 text-white font-semibold rounded-md shadow-md hover:bg-orange-600 transition duration-300"
           >
             Login
           </button>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Don&apos;t have an account yet?{" "}
-            <a
-              href="/register"
-              className="text-orange-500 underline hover:text-orange-700"
-            >
-              Register here
-            </a>
-          </p>
         </form>
+
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Don&apos;t have an account?{" "}
+          <a
+            href="/register"
+            className="text-orange-500 underline hover:text-orange-700"
+          >
+            Register here
+          </a>
+        </p>
       </section>
     </main>
   );
