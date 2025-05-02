@@ -9,7 +9,7 @@ export default function Home() {
       <p className="text-lg text-gray-700">
         This is a simple Next.js app with TypeScript and Tailwind CSS.
       </p>
-      <Link href='./main/login/'>
+      <Link href='./main/login/' className="mt-4 text-blue-500 hover:underline">
       This is a link to the login page
       </Link>
     </div>
