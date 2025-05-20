@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Zap, MonitorSmartphone, Rocket } from "lucide-react";
+import EditableDropdown from "@/components/ui/editdropdown";
 
 const features = [
   { icon: Rocket, title: "Fast", description: "ไม่รู้ว่าทำไมถึงเร็ว" },
@@ -77,6 +78,7 @@ export default function HomePage() {
           );
         })}
       </div>
+      <EditableDropdown options={['1','2','3']}/>
     </div>
   );
 }
