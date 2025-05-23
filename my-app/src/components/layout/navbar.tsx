@@ -7,10 +7,10 @@ import { useDarkMode } from "@/hook/useToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isDark, toggleDarkMode } = useDarkMode(); // 👈 ใช้งาน hook
+  const { isDark, toggleDarkMode } = useDarkMode();
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/30 dark:bg-slate-900/30 border-b border-white/20">
+    <nav className="fixed top-0 left-0 w-full backdrop-blur-sm z-30 bg-white/30 dark:bg-slate-900/30 border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <h1 className="text-lg font-bold text-gray-800 dark:text-white">MyApp</h1>
 

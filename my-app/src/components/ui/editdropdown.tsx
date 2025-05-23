@@ -36,7 +36,6 @@ export default function EditableDropdown({
     }
   };
 
-  // Handle click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -55,7 +54,7 @@ export default function EditableDropdown({
       <input
         ref={inputRef}
         type="text"
-        className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full border border-gray-300 text-black rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         value={inputValue}
         placeholder={placeholder}
         onChange={(e) => {
@@ -71,9 +70,9 @@ export default function EditableDropdown({
       />
 
       {isOpen && (
-        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-40 overflow-auto shadow-lg">
+        <ul className="absolute z-10 w-full bg-white border border-gray-300 text-black rounded-md mt-1 max-h-40 overflow-auto shadow-lg">
           {filteredOptions.length === 0 && (
-            <li className="p-2 text-black italic">No options</li>
+            <li className="p-2 italic">No options</li>
           )}
           {filteredOptions.map((option) => (
             <li

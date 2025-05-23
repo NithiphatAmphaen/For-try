@@ -54,8 +54,7 @@ export default function HomePage() {
         </Button>
       </motion.div>
 
-      {/* Features Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 gap-y-12 max-w-5xl w-full px-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 gap-y-12 max-w-5xl w-full px-4 mb-16">
         {features.map((feature, index) => {
           const Icon = feature.icon;
           return (
